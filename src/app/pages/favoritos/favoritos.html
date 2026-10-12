@@ -1,0 +1,36 @@
+<section class="seccion">
+  <div class="contenedor">
+    <h1 class="vista__titulo">Mis favoritos</h1>
+    <p class="card__resumen" style="margin-bottom: var(--esp-3);">{{ resumen() }}</p>
+
+    @if (noticias().length) {
+      <div class="lista-vertical">
+        @for (noticia of noticias(); track noticia.id) {
+          <article class="item-favorito">
+            @if (noticia.imagen) {
+              <img class="item-favorito__imagen" [src]="noticia.imagen" [alt]="noticia.titulo">
+            } @else {
+              <div class="item-favorito__imagen"></div>
+            }
+            <div class="item-favorito__info">
+              <span class="card__categoria">{{ noticia.categoria }}</span>
+              <h3 class="card__titulo">{{ noticia.titulo }}</h3>
+              <p class="card__resumen">{{ noticia.resumen }}</p>
+            </div>
+            <div class="item-favorito__acciones">
+              <a class="btn btn--primario btn--pequeno" [routerLink]="['/noticia', noticia.id]">Ver más</a>
+              <button type="button" class="btn btn--peligro btn--pequeno" (click)="quitar(noticia.id)">Quitar</button>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <app-estado-vacio
+        icono="♡"
+        titulo="Aún no has guardado noticias"
+        texto="Marca como favorita cualquier noticia para verla aquí."
+        enlace="/noticias"
+        etiquetaEnlace="Explorar noticias" />
+    }
+  </div>
+</section>
