@@ -1,0 +1,66 @@
+<section class="seccion">
+  <div class="contenedor dos-columnas">
+
+    <div>
+      <h1 class="vista__titulo">Contáctanos</h1>
+      <p class="card__resumen">
+        Escríbenos y te responderemos lo antes posible. Todos los campos marcados con asterisco son obligatorios.
+      </p>
+
+      <div class="panel panel--suave contacto__datos">
+        <h3 style="margin-bottom: var(--esp-2);">Datos de contacto</h3>
+        <p class="contacto__dato">contacto&#64;technews.com</p>
+        <p class="contacto__dato">+57 300 000 0000</p>
+        <p class="contacto__dato">Bogotá, Colombia</p>
+      </div>
+    </div>
+
+    <form class="panel" [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
+      <h2 style="margin-bottom: var(--esp-3);">Formulario de contacto</h2>
+
+      <div class="campo" [class.campo--error]="mensajeError('nombre', 'El nombre')">
+        <label class="campo__etiqueta" for="campo-nombre">Nombre completo *</label>
+        <input class="campo__control" type="text" id="campo-nombre" formControlName="nombre"
+               placeholder="Escribe tu nombre"
+               [attr.aria-invalid]="mensajeError('nombre', 'El nombre') ? true : null">
+        <span class="campo__mensaje" role="alert">{{ mensajeError('nombre', 'El nombre') }}</span>
+      </div>
+
+      <div class="campo" [class.campo--error]="mensajeError('correo', 'El correo electrónico')">
+        <label class="campo__etiqueta" for="campo-correo">Correo electrónico *</label>
+        <input class="campo__control" type="email" id="campo-correo" formControlName="correo"
+               placeholder="tucorreo@ejemplo.com"
+               [attr.aria-invalid]="mensajeError('correo', 'El correo electrónico') ? true : null">
+        <span class="campo__mensaje" role="alert">{{ mensajeError('correo', 'El correo electrónico') }}</span>
+      </div>
+
+      <div class="campo" [class.campo--error]="mensajeError('asunto', 'El asunto')">
+        <label class="campo__etiqueta" for="campo-asunto">Asunto *</label>
+        <input class="campo__control" type="text" id="campo-asunto" formControlName="asunto"
+               placeholder="Motivo de tu mensaje"
+               [attr.aria-invalid]="mensajeError('asunto', 'El asunto') ? true : null">
+        <span class="campo__mensaje" role="alert">{{ mensajeError('asunto', 'El asunto') }}</span>
+      </div>
+
+      <div class="campo" [class.campo--error]="mensajeError('mensaje', 'El mensaje')">
+        <label class="campo__etiqueta" for="campo-mensaje">Mensaje *</label>
+        <textarea class="campo__control" id="campo-mensaje" formControlName="mensaje"
+                  placeholder="Escribe tu mensaje aquí..."
+                  [attr.aria-invalid]="mensajeError('mensaje', 'El mensaje') ? true : null"></textarea>
+        <span class="campo__mensaje" role="alert">{{ mensajeError('mensaje', 'El mensaje') }}</span>
+      </div>
+
+      <div style="display: flex; gap: var(--esp-1);">
+        <button class="btn btn--primario btn--bloque" type="submit">Enviar mensaje</button>
+        <button class="btn btn--secundario" type="button" (click)="limpiar()">Limpiar</button>
+      </div>
+
+      @if (enviado()) {
+        <p class="alerta alerta--exito" style="margin-top: var(--esp-2);" role="status">
+          Tu mensaje fue enviado correctamente.
+        </p>
+      }
+    </form>
+
+  </div>
+</section>
