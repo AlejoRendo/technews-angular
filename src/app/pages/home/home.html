@@ -1,0 +1,24 @@
+<section class="hero">
+  <div class="contenedor">
+    <h1 class="hero__titulo">Noticias de tecnología, educación y turismo</h1>
+    <p class="hero__subtitulo">Explora, guarda tus favoritas y mantente informado cada día.</p>
+    <div class="hero__acciones">
+      <a class="btn btn--primario" routerLink="/noticias">Explorar noticias</a>
+      <a class="btn btn--secundario" routerLink="/contacto">Contactar</a>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor">
+    <div class="seccion__cabecera">
+      <h2>Noticias destacadas</h2>
+      <a routerLink="/noticias">Ver todas →</a>
+    </div>
+    <div class="grid-noticias">
+      @for (noticia of destacadas; track noticia.id) {
+        <app-card-noticia [noticia]="noticia" />
+      }
+    </div>
+  </div>
+</section>
