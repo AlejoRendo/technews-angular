@@ -1,0 +1,28 @@
+<section class="seccion">
+  <div class="contenedor">
+    <h1 class="vista__titulo">Todas las noticias</h1>
+
+    <div class="chips">
+      @for (filtro of filtros; track filtro) {
+        <button type="button"
+                class="chip"
+                [class.chip--activo]="filtro === categoriaActual()"
+                (click)="seleccionar(filtro)">{{ filtro }}</button>
+      }
+    </div>
+
+    @if (noticias().length) {
+      <div class="grid-noticias" style="margin-top: var(--esp-3);">
+        @for (noticia of noticias(); track noticia.id) {
+          <app-card-noticia [noticia]="noticia" />
+        }
+      </div>
+    } @else {
+      <div style="margin-top: var(--esp-3);">
+        <app-estado-vacio
+          titulo="No hay noticias en esta categoría"
+          texto="Selecciona otra categoría para seguir explorando." />
+      </div>
+    }
+  </div>
+</section>
