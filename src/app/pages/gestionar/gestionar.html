@@ -1,0 +1,94 @@
+<section class="seccion">
+  <div class="contenedor dos-columnas dos-columnas--crud">
+
+    <form class="panel" [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+      <h2 style="margin-bottom: var(--esp-3);">Crear nueva noticia</h2>
+
+      <div class="campo" [class.campo--error]="mensajeError('titulo', 'El título')">
+        <label class="campo__etiqueta" for="campo-titulo">Título *</label>
+        <input class="campo__control" type="text" id="campo-titulo" formControlName="titulo"
+               placeholder="Título de la noticia"
+               [attr.aria-invalid]="mensajeError('titulo', 'El título') ? true : null">
+        <span class="campo__mensaje" role="alert">{{ mensajeError('titulo', 'El título') }}</span>
+      </div>
+
+      <div class="campo" [class.campo--error]="mensajeError('categoria', 'La categoría')">
+        <label class="campo__etiqueta" for="campo-categoria">Categoría *</label>
+        <select class="campo__control" id="campo-categoria" formControlName="categoria"
+                [attr.aria-invalid]="mensajeError('categoria', 'La categoría') ? true : null">
+          <option value="">Selecciona una categoría</option>
+          @for (categoria of categorias; track categoria) {
+            <option [value]="categoria">{{ categoria }}</option>
+          }
+        </select>
+        <span class="campo__mensaje" role="alert">{{ mensajeError('categoria', 'La categoría') }}</span>
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="campo-imagen">URL de imagen</label>
+        <input class="campo__control" type="text" id="campo-imagen" formControlName="imagen"
+               placeholder="img/noticias/ejemplo.jpg">
+        <span class="campo__mensaje"></span>
+      </div>
+
+      <div class="campo" [class.campo--error]="mensajeError('resumen', 'La descripción')">
+        <label class="campo__etiqueta" for="campo-resumen">Descripción *</label>
+        <textarea class="campo__control" id="campo-resumen" formControlName="resumen"
+                  placeholder="Resumen breve de la noticia"
+                  [attr.aria-invalid]="mensajeError('resumen', 'La descripción') ? true : null"></textarea>
+        <span class="campo__mensaje" role="alert">{{ mensajeError('resumen', 'La descripción') }}</span>
+      </div>
+
+      <div style="display: flex; gap: var(--esp-1);">
+        <button class="btn btn--primario btn--bloque" type="submit">Guardar noticia</button>
+        <button class="btn btn--secundario" type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      @if (creada()) {
+        <p class="alerta alerta--exito" style="margin-top: var(--esp-2);" role="status">
+          La noticia se creó correctamente.
+        </p>
+      }
+    </form>
+
+    <div>
+      <div class="seccion__cabecera">
+        <h2>Noticias publicadas</h2>
+        <span class="card__resumen">{{ contador() }}</span>
+      </div>
+
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Categoría</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (noticia of noticias(); track noticia.id) {
+            <tr>
+              <td class="tabla__celda-titulo">{{ noticia.titulo }}</td>
+              <td class="tabla__celda-suave">{{ noticia.categoria }}</td>
+              <td class="tabla__celda-suave">{{ noticia.fecha | fecha }}</td>
+              <td>
+                <button type="button" class="btn btn--peligro btn--pequeno"
+                        (click)="eliminar(noticia.id)">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="tabla__celda-suave">No hay noticias publicadas.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <p class="alerta alerta--info" style="margin-top: var(--esp-2);">
+        Al eliminar se solicita confirmación. Los datos persisten en el navegador.
+      </p>
+    </div>
+
+  </div>
+</section>
