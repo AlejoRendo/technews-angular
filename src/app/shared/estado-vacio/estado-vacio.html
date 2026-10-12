@@ -1,0 +1,12 @@
+<div class="estado-vacio">
+  @if (icono) {
+    <span class="estado-vacio__icono">{{ icono }}</span>
+  }
+  <p class="card__titulo">{{ titulo }}</p>
+  @if (texto) {
+    <p class="estado-vacio__texto">{{ texto }}</p>
+  }
+  @if (enlace) {
+    <a class="btn btn--primario" [routerLink]="enlace">{{ etiquetaEnlace }}</a>
+  }
+</div>

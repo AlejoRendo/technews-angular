@@ -1,0 +1,15 @@
+<article class="card">
+  @if (noticia.imagen) {
+    <img class="card__imagen" [src]="noticia.imagen" [alt]="noticia.titulo">
+  } @else {
+    <div class="card__imagen"></div>
+  }
+  <div class="card__cuerpo">
+    <span class="card__categoria">{{ noticia.categoria }}</span>
+    <h3 class="card__titulo">{{ noticia.titulo }}</h3>
+    <p class="card__resumen">{{ noticia.resumen }}</p>
+    <div class="card__acciones">
+      <a class="btn btn--primario btn--pequeno" [routerLink]="['/noticia', noticia.id]">Ver más</a>
+    </div>
+  </div>
+</article>
